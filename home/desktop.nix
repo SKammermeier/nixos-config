@@ -11,6 +11,8 @@
       jetbrains.clion
       jetbrains.pycharm
       jetbrains.rust-rover
+
+      eduvpn-client
   ];
 
   programs.google-chrome = {
