@@ -14,6 +14,7 @@
           email = "simon.kammermeier@tum.de";
         };
       };
+      lfs.enable = true;
     };
 
     zsh = {
