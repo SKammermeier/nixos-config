@@ -13,6 +13,8 @@
       jetbrains.rust-rover
 
       eduvpn-client
+
+      kdePackages.kcalc # Calculator
   ];
 
   programs.google-chrome = {
