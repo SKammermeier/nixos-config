@@ -55,6 +55,19 @@
             inherit nixpkgs-unstable;
           };
         };
-      };
+      } //
+      nixpkgs.lib.attrsets.genAttrs' ["eliza" "orangepi5ultra"] (s: nixpkgs.lib.attrsets.nameValuePair ("simonk@"+s)
+      (home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.aarch64-linux;
+        modules = [
+          ./home/home.nix
+          ./home/server.nix
+        ];
+        extraSpecialArgs = {
+          username = "simonk";
+          inherit nixpkgs-unstable;
+        };
+      }
+    ));
   };
 }
