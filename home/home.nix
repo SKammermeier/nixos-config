@@ -25,6 +25,8 @@
     home.packages = with pkgs; [
         nix-output-monitor
         nil
+        marksman
+
         pkgs-unstable.claude-code
     ];
 
