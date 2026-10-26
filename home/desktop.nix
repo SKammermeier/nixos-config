@@ -15,6 +15,8 @@
       eduvpn-client
 
       kdePackages.kcalc # Calculator
+
+      onlyoffice-desktopeditors
   ];
 
   programs.google-chrome = {
