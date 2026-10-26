@@ -1,4 +1,4 @@
-{ pkgs, lib, config, username, ... }:
+{ pkgs, pkgs-unstable, lib, config, username, nixpkgs-unstable, ... }:
 {
 
   imports = [
@@ -10,7 +10,14 @@
     type = lib.types.listOf lib.types.str;
   };
 
+
   config = {
+    _module.args.pkgs-unstable = import nixpkgs-unstable {
+      inherit (pkgs.stdenv.hostPlatform) system;
+      config.allowUnfreePredicate = pkg:
+        builtins.elem (lib.getName pkg) config.allowUnfreePkg;
+    };
+
     home.username = username;
 
     home.homeDirectory = "/home/${username}";
@@ -18,6 +25,11 @@
     home.packages = with pkgs; [
         nix-output-monitor
         nil
+        pkgs-unstable.claude-code
+    ];
+
+    allowUnfreePkg = [
+       "claude-code"
     ];
 
 
