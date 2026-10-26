@@ -1,21 +1,25 @@
 # Edit this configuration file to define what should be installed on
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
-
-{ config, lib, pkgs, username, inputs, ... }:
-
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ./Eduroam
-    ];
+  config,
+  lib,
+  pkgs,
+  username,
+  inputs,
+  ...
+}: {
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ./Eduroam
+  ];
 
-  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg)
+  nixpkgs.config.allowUnfreePredicate = pkg:
+    builtins.elem (lib.getName pkg)
     [
       "libfprint-2-tod1-goodix"
     ];
-
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -26,7 +30,7 @@
   # Configure network connections interactively with nmcli or nmtui.
   networking.networkmanager = {
     enable = true;
-    plugins = [ pkgs.networkmanager-openvpn ];
+    plugins = [pkgs.networkmanager-openvpn];
   };
 
   # Set your time zone.
@@ -35,19 +39,17 @@
   # Select internationalisation properties.
   i18n.defaultLocale = "de_DE.UTF-8";
   console = {
-  #   font = "Lat2-Terminus16";
+    #   font = "Lat2-Terminus16";
     useXkbConfig = true; # use xkb.options in tty.
   };
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
-
   # Enable the  Desktop Environment.
   services.displayManager.sddm.enable = true;
   services.displayManager.sddm.wayland.enable = true;
   services.desktopManager.plasma6.enable = true;
-  
 
   # Configure keymap in X11
   services.xserver.xkb.layout = "de";
@@ -72,12 +74,11 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.${username} = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" ]; # Enable ‘sudo’ for the user.
+    extraGroups = ["wheel" "networkmanager"]; # Enable ‘sudo’ for the user.
     shell = pkgs.zsh;
   };
 
-
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = ["nix-command" "flakes"];
 
   # List packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
@@ -110,7 +111,6 @@
     enable = true;
     powerOnBoot = false;
   };
-
 
   services.fprintd.enable = true;
 
@@ -156,7 +156,6 @@
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 
-
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
   #
@@ -175,6 +174,4 @@
   #
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
   system.stateVersion = "25.11"; # Did you read the comment?
-
 }
-

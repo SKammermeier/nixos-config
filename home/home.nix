@@ -1,15 +1,19 @@
-{ pkgs, pkgs-unstable, lib, config, username, nixpkgs-unstable, ... }:
 {
-
+  pkgs,
+  pkgs-unstable,
+  lib,
+  config,
+  username,
+  nixpkgs-unstable,
+  ...
+}: {
   imports = [
     ./shell.nix
   ];
 
-
   options.allowUnfreePkg = lib.mkOption {
     type = lib.types.listOf lib.types.str;
   };
-
 
   config = {
     _module.args.pkgs-unstable = import nixpkgs-unstable {
@@ -23,17 +27,16 @@
     home.homeDirectory = "/home/${username}";
 
     home.packages = with pkgs; [
-        nix-output-monitor
-        nil
-        marksman
+      nix-output-monitor
+      nil
+      marksman
 
-        pkgs-unstable.claude-code
+      pkgs-unstable.claude-code
     ];
 
     allowUnfreePkg = [
-       "claude-code"
+      "claude-code"
     ];
-
 
     nixpkgs.config.allowUnfreePredicate = pkg:
       builtins.elem (lib.getName pkg) config.allowUnfreePkg;
@@ -61,10 +64,7 @@
           };
         };
       };
-
-
     };
-
 
     # This value determines the Home Manager release that your
     # configuration is compatible with. This helps avoid breakage

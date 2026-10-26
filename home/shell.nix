@@ -1,10 +1,8 @@
-{lib, ...}:
-{
-  allowUnfreePkg =
-    [
-      "zsh-abbr"
-    ];
-#   nixpkgs.config.allowUnfree =  builtins.warn "Checking " true;
+{lib, ...}: {
+  allowUnfreePkg = [
+    "zsh-abbr"
+  ];
+  #   nixpkgs.config.allowUnfree =  builtins.warn "Checking " true;
   programs = {
     git = {
       enable = true;
@@ -43,29 +41,28 @@
       syntaxHighlighting.enable = true;
       #TODO
       initContent = lib.mkOrder 550 ''
-      zstyle ':completion:*' completer _list _oldlist _expand _complete _ignored _correct _approximate
-      zstyle ':completion:*' completions 1
-      zstyle ':completion:*' expand prefix suffix
-      zstyle ':completion:*' glob 1
-      zstyle ':completion:*' group-name '''
-      zstyle ':completion:*' ignore-parents parent pwd
-      zstyle ':completion:*' insert-unambiguous false
-      zstyle ':completion:*' list-colors ''${(s.:.)LS_COLORS}
-      zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
-      zstyle ':completion:*' list-suffixes true
-      zstyle ':completion:*' matcher-list ''' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'r:|[._-]=** r:|=**'
-      zstyle ':completion:*' max-errors 2
-      zstyle ':completion:*' menu select=1
-      zstyle ':completion:*' old-menu false
-      zstyle ':completion:*' original false
-      zstyle ':completion:*' preserve-prefix '//[^/]##/'
-      zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
-      zstyle ':completion:*' substitute 1
-      zstyle ':completion:*' use-compctl true
-      zstyle ':completion:*' verbose true
-      zstyle ':completion:*' word true
-      ''
-      ;
+        zstyle ':completion:*' completer _list _oldlist _expand _complete _ignored _correct _approximate
+        zstyle ':completion:*' completions 1
+        zstyle ':completion:*' expand prefix suffix
+        zstyle ':completion:*' glob 1
+        zstyle ':completion:*' group-name '''
+        zstyle ':completion:*' ignore-parents parent pwd
+        zstyle ':completion:*' insert-unambiguous false
+        zstyle ':completion:*' list-colors ''${(s.:.)LS_COLORS}
+        zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
+        zstyle ':completion:*' list-suffixes true
+        zstyle ':completion:*' matcher-list ''' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'r:|[._-]=** r:|=**'
+        zstyle ':completion:*' max-errors 2
+        zstyle ':completion:*' menu select=1
+        zstyle ':completion:*' old-menu false
+        zstyle ':completion:*' original false
+        zstyle ':completion:*' preserve-prefix '//[^/]##/'
+        zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
+        zstyle ':completion:*' substitute 1
+        zstyle ':completion:*' use-compctl true
+        zstyle ':completion:*' verbose true
+        zstyle ':completion:*' word true
+      '';
     };
 
     direnv = {
@@ -74,8 +71,7 @@
       nix-direnv.enable = true;
     };
 
-
-  # Let Home Manager install and manage itself.
+    # Let Home Manager install and manage itself.
     home-manager.enable = true;
   };
 }

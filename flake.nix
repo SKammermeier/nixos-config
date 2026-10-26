@@ -15,22 +15,28 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, plasma-manager }@inputs:
-    let username = "simon";
-    in {
-
-      nixosConfigurations.edgedancer = nixpkgs.lib.nixosSystem {
-        modules = [
-          # Import the previous configuration.nix we used,
-          # so the old configuration file still takes effect
-          ./configuration.nix
-        ];
-        specialArgs = {
-          inherit username inputs;
-        };
+  outputs = {
+    self,
+    nixpkgs,
+    nixpkgs-unstable,
+    home-manager,
+    plasma-manager,
+  } @ inputs: let
+    username = "simon";
+  in {
+    nixosConfigurations.edgedancer = nixpkgs.lib.nixosSystem {
+      modules = [
+        # Import the previous configuration.nix we used,
+        # so the old configuration file still takes effect
+        ./configuration.nix
+      ];
+      specialArgs = {
+        inherit username inputs;
       };
+    };
 
-      homeConfigurations = {
+    homeConfigurations =
+      {
         simon = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.x86_64-linux;
           modules = [
@@ -49,25 +55,27 @@
           modules = [
             ./home/home.nix
             ./home/server.nix
-         ];
+          ];
           extraSpecialArgs = {
             username = "simonk";
             inherit nixpkgs-unstable;
           };
         };
-      } //
-      nixpkgs.lib.attrsets.genAttrs' ["eliza" "orangepi5ultra"] (s: nixpkgs.lib.attrsets.nameValuePair ("simonk@"+s)
-      (home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.aarch64-linux;
-        modules = [
-          ./home/home.nix
-          ./home/server.nix
-        ];
-        extraSpecialArgs = {
-          username = "simonk";
-          inherit nixpkgs-unstable;
-        };
       }
-    ));
+      // nixpkgs.lib.attrsets.genAttrs' ["eliza" "orangepi5ultra"] (s:
+        nixpkgs.lib.attrsets.nameValuePair ("simonk@" + s)
+        (
+          home-manager.lib.homeManagerConfiguration {
+            pkgs = nixpkgs.legacyPackages.aarch64-linux;
+            modules = [
+              ./home/home.nix
+              ./home/server.nix
+            ];
+            extraSpecialArgs = {
+              username = "simonk";
+              inherit nixpkgs-unstable;
+            };
+          }
+        ));
   };
 }
