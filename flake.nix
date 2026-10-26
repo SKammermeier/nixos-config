@@ -74,6 +74,7 @@
             extraSpecialArgs = {
               username = "simonk";
               inherit nixpkgs-unstable;
+              host = s;
             };
           }
         ));

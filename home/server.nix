@@ -1,6 +1,7 @@
 {
   lib,
   username,
+  host,
   ...
 }: {
   programs = {
@@ -16,5 +17,5 @@
       '';
     };
   };
-  home.homeDirectory = lib.mkForce "/scratch/${username}/home";
+  home.homeDirectory = lib.mkIf (host != "orangepi5ultra") (lib.mkForce "/scratch/${username}/home");
 }
