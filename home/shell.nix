@@ -35,8 +35,8 @@
         extended = true;
         findNoDups = true;
         ignoreDups = true;
-        save = 50000;
-        size = 50000;
+        save = 500000;
+        size = 500000;
       };
       syntaxHighlighting.enable = true;
       #TODO
@@ -73,7 +73,7 @@
 
     tmux = {
       enable = true;
-      historyLimit = 50000;
+      historyLimit = 500000;
       mouse = true;
       newSession = true;
     };
