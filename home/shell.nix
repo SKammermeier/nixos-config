@@ -71,6 +71,13 @@
       nix-direnv.enable = true;
     };
 
+    tmux = {
+      enable = true;
+      historyLimit = 50000;
+      mouse = true;
+      newSession = true;
+    };
+
     # Let Home Manager install and manage itself.
     home-manager.enable = true;
   };
